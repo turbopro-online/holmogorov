@@ -1,0 +1,1 @@
+var imagesScr = [["Venus-planeta.jpg", "venus-1920-1080-0.jpg", "7.jpg"]];

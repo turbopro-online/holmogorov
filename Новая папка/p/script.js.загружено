@@ -1,0 +1,65 @@
+var currentImg = new Array();
+
+window.onload = function() {
+
+	for (var i = 0; i < imagesScr.length; i++) {
+		currentImg.push(0);
+	}
+
+	//Нахождение всех стрелок навигации
+	buts = document.getElementsByClassName("but");
+
+	//Привязывание функции пролистывания к кнопкам
+	for (var i = 0; i < buts.length; i++) {
+		buts[i].addEventListener("click", function(e) {
+			
+			//Определение слайдера
+			sendedElem = e.target;
+			if (e.target.className  == "navigation") {
+				sendedElem = e.target.parentNode;
+			}
+			parent = sendedElem.parentNode;
+			sliderLocation = parent.id;
+			//console.log(imagesScr[sliderLocation[3] - 1].length);
+
+			//Изменение картинки
+			if (sendedElem.id == "leftBut") {
+				currentImg[sliderLocation[3] - 1]--;
+				if (currentImg[sliderLocation[3] - 1] < 0) {
+					currentImg[sliderLocation[3] - 1] = imagesScr[sliderLocation[3] - 1].length - 1;
+				}
+			}
+
+			if (sendedElem.id == "rightBut") {
+				currentImg[sliderLocation[3] - 1]++;
+				if (currentImg[sliderLocation[3] - 1] > imagesScr[sliderLocation[3] - 1].length - 1) {
+					currentImg[sliderLocation[3] - 1] = 0;
+				}
+			}
+			
+			imgElement = document.getElementById(sliderLocation).getElementsByTagName("img")[1];
+			
+			var state = 1;
+				delay = 200;
+			
+			imgElement.classList.add("hide");
+			itrvl = setInterval(function() {
+				switch (state) {
+					case 1: state = 2;
+							imgElement.src = "images/" + imagesScr[sliderLocation[3] - 1][currentImg[sliderLocation[3] - 1]];
+							imgElement.classList.remove("hide");
+							imgElement.classList.add("preShow");
+							break;
+					case 2: state = 3;
+							imgElement.classList.remove("preShow");
+							imgElement.classList.add("show");
+							break;
+					case 3: state = 1;
+							imgElement.classList.remove("show");
+							clearInterval(itrvl);
+							break;
+				}
+			}, delay);			
+		});
+	}	
+};

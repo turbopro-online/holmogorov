@@ -1,0 +1,1 @@
+var imagesScr = [["Earth_Eastern_Hemisphere.jpg", "Earth_Western_Hemisphere.jpg", "Earth_Western_Moon.jpg"]];
